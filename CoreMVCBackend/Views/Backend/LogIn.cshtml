@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <title>Login</title>
+        <link rel="stylesheet" href="~/css/ViewCss/Backend/LogIn.css">        
+    </head>
+    <body>
+        <div id="space"></div>
+        <div id="loginForm">   
+            <div id="divForm">
+                <form>
+                    <h1>管理介面</h1>
+                    <div>
+                        <label for="Account_Account">帳號</label>
+                        <br>
+                        <input type="text" name="Account_Account" id="Account_Account"/>                
+                    </div>
+                    <div>
+                        <label for="Account_Password">密碼</label>
+                        <br>
+                        <input type="text" name="Account_Password" id="Account_Password"/>
+                    </div>
+                </form>            
+                <br>
+                <button id="btnLogIn">登入</button>
+                <br>
+                <span id="ErrorMsg"></span>
+            </div>                     
+        </div>        
+    </body>
+    <script src="~/js/ViewJs/Backend/LogIn.js"></script>    
+</html>
