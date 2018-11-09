@@ -1,6 +1,6 @@
 using CoreMVCBackend.Model.User;
-using MySql.Data;
 using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace CoreMVCBackend.Service.User{
     public class MemberData:BaseData{
@@ -9,17 +9,15 @@ namespace CoreMVCBackend.Service.User{
 
             AccountModel result=new AccountModel();
 
-            
             using(MySqlConnection conn=new MySqlConnection(Conn)){
-                conn.Open();
-
+                
                 SQLs.Clear();
                 SQLs.AppendLine("SELECT * ");
                 SQLs.AppendLine("FROM CoreMVCBackend.Account ");
+                SQLs.AppendLine("WHERE Account_Account LIKE @Account_Account ");
 
-                MySqlCommand cmd=new MySqlCommand(SQLs.ToString(),conn);
-                MySqlDataReader rdr=cmd.ExecuteReader();
-                                
+                var query=conn.QueryFirstOrDefault<AccountModel>(SQLs.ToString(),new {Account_Account="%"+Acc+"%"});
+                string a="";
             }
 
             return null;
