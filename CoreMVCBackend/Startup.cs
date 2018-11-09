@@ -23,19 +23,23 @@ namespace CoreMVCBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<MySqlConnection>(Configuration.GetSection("MySqlConnection"));
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();                
+                
             }
             else
             {
-                app.UseExceptionHandler("/Backend/Error");
+                app.UseExceptionHandler("/Backend/Error");                
             }
 
             app.UseStaticFiles();

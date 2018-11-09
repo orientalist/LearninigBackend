@@ -28,7 +28,7 @@ namespace CoreMVCBackend.Service.User{
 
             AccountModel result=new MemberData().Create(Acc,Pass,conn);
 
-            return null;
-        }
+            return result;
+        }        
     }
 }

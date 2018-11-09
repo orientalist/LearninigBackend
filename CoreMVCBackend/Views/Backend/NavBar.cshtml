@@ -1,0 +1,167 @@
+<style>
+    #NavBarBody{        
+        text-align: center;
+        display: flex;        
+        flex-direction: column;
+    }
+    table{
+        margin: auto;
+    }
+    table tr{
+        border: 1px solid black;
+    }
+    table td{
+        border: 1px solid black;
+    }
+    table{
+        margin-top: 20px;
+        border: 1px solid black;
+        width: 60%;
+        text-align: center;
+    }
+    #NavBarItemCreate{
+        display: none;
+    }
+    #NavBarItemQuery{
+        display: none;
+        width: 80%;
+    }
+    #NavBarItemQuery input:not('radio'){
+        width: 100px;
+    }
+</style>
+<div id="NavBarBody">
+    <table>
+        <tr>
+            <th>NavBar項目</th>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="OpenCreateTable()">新增</button>
+                <button onclick="QueryNavItem()">查詢</button>
+            </td>            
+        </tr>
+    </table>
+    <table id="NavBarItemCreate">
+        <tr>
+            <th colspan="2">新增NavBar項目</th>
+        </tr>
+        <tr>
+            <td>NavBarItem名稱</td>
+            <td><input type="text" name="NavName" id="NavName"></td>
+        </tr>        
+        <tr>
+            <td>Action</td>
+            <td>
+                <input type="text" name="ActionName" id="ActionName">
+            </td>
+        </tr>
+        <tr>
+            <td>狀態</td>
+            <td>
+                <input type="radio" value="1" name="Status" checked="checked">顯示
+                <input type="radio" value="0" name="Status">隱藏
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="CreateAction()">送出</button>
+                <button>清空</button>
+            </td>            
+        </tr>
+    </table>
+    <table id="NavBarItemQuery">
+        <tr>
+            <th colspan="6">NavBar項目</th>
+        </tr>
+        <tr id="NavBarItemTh">
+            <th>編號</th>
+            <th>名稱</th>
+            <th>Controller</th>
+            <th>Action</th>
+            <th>狀態</th>
+            <th>指令</th>
+        </tr>        
+    </table>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#NavBarBody button").button();
+        fnGetControllers();        
+
+    });
+    var OpenCreateTable=function(){
+        $("#NavBarItemCreate").show();
+        $("#NavBarItemQuery").hide();
+    }
+    var QueryNavItem=function(){
+        $("#NavBarItemCreate").hide();
+        $("#NavBarItemQuery").show();
+        fnQueryNavBarItem();
+    }
+    var fnGetControllers=function(){
+        $.ajax({
+            type:"POST",
+            url:"/WebAPIs/GetControllers"
+        }).done(function(result){
+            
+        });
+    }
+    var CreateAction=function(){        
+        if(fnValidate()){
+            var Data={
+                NavName:$("#NavName").val(),
+                ActionName:$("#ActionName").val(),
+                NavStatus:$("input[type=radio]:checked").val()
+            };
+            $.ajax({
+                url:"/WebAPIs/CreateNavBarItem",
+                type:"POST",
+                data:Data
+            }).done(function(){
+                alert("新增完成");
+            });
+        }                
+    }    
+    var fnValidate=function(){
+        if($("#NavName").val().length==0){
+            alert("名稱未填");
+            return false;
+        }
+        if($("#ActionName").val().length==0){
+            alert("方法未填");
+            return false;
+        }
+        return true;
+    }
+    var fnQueryNavBarItem=function(){
+        $("#NavBarItemTh").nextAll().remove();
+        $.ajax({
+            url:"/WebAPIs/QueryNavBarItem",
+            type:"POST"                
+        }).done(function(result){            
+            $.each(result.data,function(index,value){                
+                var tr="<tr id='NavItem"+value.id+"'>"
+                        +"<td>"+value.id+"</td>"
+                        +"<td><input name='NavBarName' type='text' value='"+value.itemName+"'></td>"
+                        +"<td><input type='text' value='"+value.itemController+"'></td>"
+                        +"<td><input type='text' value='"+value.itemAction+"'></td>"
+                        +"<td><input type='radio' value='1' name='NavStatus_"+value.id+"'>顯示<input type='radio' value='0' name='NavStatus_"+value.id+"'>隱藏</td>"
+                        +"<td><button onclick='fnModefyNavBarItem("+value.id+")'>修改</button><button>刪除</button></td>"
+                    +"<tr/>";                                        
+                $("#NavBarItemTh").after(tr);
+                var radioName="NavStatus_"+value.id;
+                if(value.itemStatus==1){                    
+                    $("input[name='"+radioName+"']")[0].checked=true;
+                }
+                else{                    
+                    $("input[name='"+radioName+"']")[1].checked=true;
+                }                
+            });
+        });
+    }
+    var fnModefyNavBarItem=function(id){
+        var id="#NavItem"+id;
+        alert($(id).find("input[name='NavBarName']").val());
+    }
+</script>

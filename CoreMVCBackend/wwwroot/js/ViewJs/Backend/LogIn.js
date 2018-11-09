@@ -1,6 +1,7 @@
 $(document).ready(function(){
     InitView();
     $("#btnLogIn").click(function(){
+        $("#btnLogIn").prop("disabled",true);
         if(ValidateInpit()){
             var Data={
                 Account_Account:$("#Account_Account").val(),
@@ -11,9 +12,19 @@ $(document).ready(function(){
                 url:"/WebAPIs/Login",
                 type:"POST",                
                 data:Data
-            }).done(function(result){
+            }).done(function(result){                
                 console.log(result);
+                if(result.httpStatus!=1){
+                    $("#ErrorMsg").text(result.message);
+                }
+                else{                    
+                    location.href="/Backend/Index";
+                }
+                $("#btnLogIn").prop("disabled",false);
             });
+        }
+        else{
+            $("#btnLogIn").prop("disabled",false);
         }
     });
                 

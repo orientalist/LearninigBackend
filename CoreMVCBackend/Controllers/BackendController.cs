@@ -11,12 +11,15 @@ namespace CoreMVCBackend.Backend{
         public IActionResult Index(){            
             
             if(!CheckAccount(HttpContext)){
-                return View("LogIn");
+                 return View("LogIn");
             }
 
             return View();
         }
 
+        public IActionResult NavBar(){
+            return PartialView();
+        }
         private bool CheckAccount(HttpContext context){
             try{
                 string str=context.Session.GetString(Key_Storage.UserAccount);
