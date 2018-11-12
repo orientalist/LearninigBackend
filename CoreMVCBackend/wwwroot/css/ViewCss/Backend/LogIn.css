@@ -6,7 +6,7 @@
     display: flex;    
     align-items: center;
     flex-direction: column;    
-    font-size: 10px;
+    font-size: 15px;
 }
 #ErrorMsg{
     color: red;
@@ -25,12 +25,12 @@
     opacity: 0.8;
 }
 #divForm input[type=text]{    
-    width: 70%;
-    height:20px;
+    width: 60%;
+    height:20px;    
 }
 #divForm input[type=password]{    
-    width: 70%;
-    height:20px;
+    width: 60%;
+    height:20px;    
 }
 #divForm button{
     font-size: 8px;
