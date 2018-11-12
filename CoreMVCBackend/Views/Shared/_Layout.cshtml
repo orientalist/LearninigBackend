@@ -10,16 +10,34 @@
     <link rel="stylesheet" href="~/css/Jquery/jquery-ui.min.css">
     <style>
         #topBar{
-            background-color:#77DDFF;
+            background-color:black;
+            opacity: 0.6;
         }
+        footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            opacity: 0.6;
+        }     
+        body{
+            background-image: url("/images/QACY.gif");
+        }   
     </style>
     <script src="~/js/Jquery/jquery.js"></script>
     <script src="~/js/BootStrap/bootstrap.bundle.min.js"></script>
     <script src="~/js/Jquery/jquery-ui.min.js"></script>    
+
+    <script>
+        $(document).ready(function(){
+            var heightOfNavBar=$("#topBar").height();
+            $("footer").height(heightOfNavBar);
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" id="topBar">
-        <a class="navbar-brand" href="#">Zhuang's Zone</a>
+        <a class="navbar-brand" href="#" style="color:white;">Zhuang's Zone</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAll">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,12 +51,11 @@
         <div>
             <span id="UserName"></span>
         </div>
-    </nav>
+    </nav>    
     <div>
         @RenderBody()        
-        <footer>
-            <!-- <p>&copy; 2018 - LearningMVC</p> -->
+        <footer>            
         </footer>
-    </div>            
+    </div>
 </body>
 </html>

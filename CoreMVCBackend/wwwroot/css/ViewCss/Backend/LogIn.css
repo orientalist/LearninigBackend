@@ -2,14 +2,37 @@
     height: 20vh;
 }
 #loginForm{                
-    text-align: center;                
     margin:auto;
-    display: flex;
-    justify-content: center;
+    display: flex;    
     align-items: center;
-    flex-direction: column;
-    border: 1px solid black;
+    flex-direction: column;    
+    font-size: 10px;
 }
 #ErrorMsg{
     color: red;
+}
+#LogInBar{
+    width: 100%;
+    border:1px solid black;    
+    background-color: silver;    
+}
+#divForm{
+    text-align:center;
+    padding-top: 10px;
+    width: inherit;           
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+}
+#divForm input[type=text]{    
+    width: 70%;
+    height:20px;
+}
+#divForm input[type=password]{    
+    width: 70%;
+    height:20px;
+}
+#divForm button{
+    font-size: 8px;
+    width: 20%;    
 }

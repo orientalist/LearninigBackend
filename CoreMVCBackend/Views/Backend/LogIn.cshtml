@@ -7,25 +7,29 @@
     </head>
     <body>
         <div id="space"></div>
-        <div id="loginForm">   
-            <div id="divForm">
-                <form>
-                    <h1>管理介面</h1>
+        <div id="loginForm">
+            <div id="LogInBar">
+                <span style="color:black;">登入</span>
+            </div>
+            <div id="divForm">                
+                <form>                    
                     <div>
-                        <label for="Account_Account">帳號</label>
-                        <br>
+                        <label for="Account_Account">帳號:</label>                        
                         <input type="text" name="Account_Account" id="Account_Account"/>                
                     </div>
                     <div>
-                        <label for="Account_Password">密碼</label>
-                        <br>
+                        <label for="Account_Password">密碼:</label>                        
                         <input type="password" name="Account_Password" id="Account_Password"/>
                     </div>
-                </form>            
-                <br>
-                <button id="btnLogIn">登入</button>
-                <br>
-                <span id="ErrorMsg"></span>
+                </form>
+                <div style="padding-left:55%;"><input type="checkbox">儲存帳號</div>
+                <div style="display:flex;justify-content:space-around;margin-top:8px;">
+                    <button id="btnLogIn">登入</button>
+                    <button id="btnLogCancel">取消</button>
+                </div>            
+                <div style="height:20px;">
+                    <span id="ErrorMsg"></span>
+                </div>                    
             </div>                     
         </div>        
     </body>

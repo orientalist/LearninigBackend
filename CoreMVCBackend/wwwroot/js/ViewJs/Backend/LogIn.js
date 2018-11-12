@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    InitView();
+    InitView();    
     $("#btnLogIn").click(function(){
         $("#btnLogIn").prop("disabled",true);
         if(ValidateInpit()){
