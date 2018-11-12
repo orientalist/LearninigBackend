@@ -1,3 +1,5 @@
+var begin=1;
+var Connecting=true;
 $(document).ready(function(){
     InitView();    
     $("#btnLogIn").click(function(){
@@ -35,6 +37,7 @@ var InitView=function(){
     height=height+50;
     $("#loginForm").width(width);
     $("#loginForm").height(height);
+    fnCheckDBStatus();    
 }
 var ValidateInpit=function(){
     if($("#Account_Account").val().length==0){
@@ -46,4 +49,36 @@ var ValidateInpit=function(){
             return false;
         }
     return true;
+}
+var fnCheckDBStatus=function(){    
+    $("#btnLogIn").prop("disabled",true);
+    $.ajax({
+        url:"/WebAPIs/CheckDBStatus",
+        type:"POST"
+    }).done(function(result){
+        if(result.httpStatus==0){            
+            $("#Connecting").text("伺服器維護中");
+        }
+        else if(result.httpStatus==1){            
+            $("#btnLogIn").prop("disabled",false);
+            $("#Connecting").text("伺服器已開啟");
+        }
+        Connecting=false;
+    });
+    fnDoting();
+}
+var fnDoting=function(){
+    if(Connecting){
+        if(begin%4!=0)
+        {
+            var content=$("#Connecting").text();
+            content+=".";
+            $("#Connecting").text(content);
+        }
+        else{
+            $("#Connecting").text("伺服器連線中");
+        }
+        begin++;
+        setTimeout(fnDoting,1000);
+    }    
 }

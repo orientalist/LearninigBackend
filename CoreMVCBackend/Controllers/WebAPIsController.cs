@@ -185,6 +185,24 @@ namespace CoreMVCBackend.Backend{
             }
             return Json(Result);
         }
+
+        [HttpPost]
+        public IActionResult CheckDBStatus(){
+            ResponseModel Result=new ResponseModel();
+
+            try{
+                if(Principal.CheckDBStatus(ConfigHelper.ConnectionString)){
+                    Result.HttpStatus="1";
+                }
+                else{
+                    Result.HttpStatus="0";
+                }
+            }
+            catch(Exception ex){
+                Result.HttpStatus="0";
+            }
+            return Json(Result);
+        }
         public void SetUserSession(AccountModel user){
             HttpContext.Session.SetString(Key_Storage.UserName,user.Account_Name);
         }

@@ -30,5 +30,9 @@ namespace CoreMVCBackend.Service.User{
 
             return result;
         }        
+
+        public static bool CheckDBStatus(string conn){
+            return new MemberData().CheckDBStatus(conn);
+        }
     }
 }

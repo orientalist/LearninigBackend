@@ -44,5 +44,21 @@ namespace CoreMVCBackend.Service.User{
                 }
             return result;
         }
+
+        public bool CheckDBStatus(string conn){
+
+            bool result=false;
+
+            using(MySqlConnection sConn=new MySqlConnection(conn)){
+                try{
+                    sConn.Open();
+                    result=true;
+                }                
+                catch(Exception ex){
+                    result=false;
+                }                
+            }
+            return result;
+        }
     }
 }

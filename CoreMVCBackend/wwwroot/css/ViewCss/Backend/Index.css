@@ -4,11 +4,15 @@
     flex-direction: row;
 }
 #MenuList{
-    width: 25%;        
+    width: 25%;
 }
 #Content{
     width: 75%;        
 }    
 #MenuList button{
     width: 100%;
+}
+.ui-state-active{
+    background-color: black;
+    border:1px solid gray;
 }

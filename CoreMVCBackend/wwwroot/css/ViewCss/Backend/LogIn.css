@@ -36,3 +36,8 @@
     font-size: 8px;
     width: 20%;    
 }
+#space{
+    text-align: right;
+    color: red;
+    padding-right: 50px;
+}
