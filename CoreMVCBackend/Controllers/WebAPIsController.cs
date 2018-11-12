@@ -15,14 +15,11 @@ using System.Collections.Generic;
 
 namespace CoreMVCBackend.Backend{
     public class WebAPIsController:BaseController{
-
-        private readonly IOptions<MySqlConnection> _MySqlConnection;              
-        private ConfigHelper ConfigHelper;          
+        
         public WebAPIsController(IOptions<MySqlConnection> Connection){
             _MySqlConnection=Connection;
             ConfigHelper=new ConfigHelper(_MySqlConnection);
-        }        
-
+        }
         private NavBarBl navBarBl;
 
         [HttpPost]        
@@ -53,10 +50,25 @@ namespace CoreMVCBackend.Backend{
             catch(Exception ex){
                 switch(ex.Source){
                     case "MySql.Data":
-                    throw new LogInException("510","伺服器發生錯誤。");                    
-                }                                
+                    Result.HttpStatus="510";
+                    Result.Message="伺服器發生錯誤。";
+                    break;
+                    default:
+                    Result.HttpStatus="0";
+                    Result.Message=ex.Message;
+                    break;               
+                }                            
             }    
             return Json(Result);
+        }
+
+        public ActionResult LogOut(){
+
+            if(!string.IsNullOrWhiteSpace(HttpContext.Session.GetString(Key_Storage.UserName))){
+                HttpContext.Session.SetString(Key_Storage.UserName,string.Empty);
+            }
+
+            return RedirectToAction("Index","Backend");
         }
 
         [HttpPost]
@@ -65,9 +77,10 @@ namespace CoreMVCBackend.Backend{
             ResponseModel Result=new ResponseModel();
 
             NavBarItemModel model=new NavBarItemModel(){
-                ItemName=Request.Form["NavName"],
-                ItemAction=Request.Form["ActionName"],
-                ItemStatus=Int32.Parse(Request.Form["NavStatus"])
+                ItemName=Request.Form["ItemName"],
+                ItemController=Request.Form["ItemController"],
+                ItemAction=Request.Form["ItemAction"],
+                ItemStatus=Int32.Parse(Request.Form["ItemStatus"])
             };
 
             try{
@@ -81,7 +94,10 @@ namespace CoreMVCBackend.Backend{
                     Result.Message="NOK";
                 }
             }
-            catch(Exception ex){}
+            catch(Exception ex){
+                Result.HttpStatus="0";
+                Result.Message=ex.Message;
+            }
 
             return Json(Result);
         }
@@ -101,8 +117,76 @@ namespace CoreMVCBackend.Backend{
             }
             return Json(Result);
         }
+
+        [HttpPost]
+        public IActionResult ModifyNavBarItem(){
+            ResponseModel Result=new ResponseModel();
+            NavBarItemModel model=new NavBarItemModel(){
+                ID=Int32.Parse(Request.Form["ID"]),
+                ItemName=Request.Form["ItemName"],
+                ItemController=Request.Form["ItemController"],
+                ItemAction=Request.Form["ItemAction"],
+                ItemStatus=Int32.Parse(Request.Form["ItemStatus"])
+            };
+            try{
+                navBarBl=new NavBarBl();
+                if(navBarBl.ModifyNavBarItem(model,ConfigHelper.ConnectionString)){
+                    Result.HttpStatus="1";
+                    Result.Message="修改成功";
+                }
+                else{
+                    Result.HttpStatus="0";
+                    Result.Message="修改失敗";
+                }
+            }
+            catch(Exception ex){
+                Result.HttpStatus="0";
+                Result.Message=ex.Message;
+            }
+            return Json(Result);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteNavBarItem(int id){
+            ResponseModel Result=new ResponseModel();
+
+            try{
+                navBarBl=new NavBarBl();
+                if(navBarBl.DeleteNavBarItem(id,ConfigHelper.ConnectionString)){
+                    Result.HttpStatus="1";
+                    Result.Message="修改成功";
+                }
+                else{
+                    Result.HttpStatus="0";
+                    Result.Message="修改失敗";
+                }
+            }catch(Exception ex){
+                Result.HttpStatus="0";
+                Result.Message=ex.Message;
+            }
+            return Json(Result);
+        }
+
+        [HttpPost]
+        public IActionResult GetUserName(){
+            ResponseModel Result=new ResponseModel();
+            try{
+                if(!string.IsNullOrWhiteSpace(HttpContext.Session.GetString(Key_Storage.UserName))){
+                    Result.HttpStatus="1";
+                    Result.Message=HttpContext.Session.GetString(Key_Storage.UserName);
+                }
+                else{
+                    Result.HttpStatus="0";
+                    Result.Message="Error";
+                }
+            }catch(Exception ex){
+                Result.HttpStatus="0";
+                Result.Message=ex.Message;
+            }
+            return Json(Result);
+        }
         public void SetUserSession(AccountModel user){
-            HttpContext.Session.SetString(Key_Storage.UserAccount,user.Account_Account);
+            HttpContext.Session.SetString(Key_Storage.UserName,user.Account_Name);
         }
     }
 }

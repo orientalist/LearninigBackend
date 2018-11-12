@@ -14,6 +14,7 @@ namespace CoreMVCBackend.Backend{
                  return View("LogIn");
             }
 
+            
             return View();
         }
 
@@ -22,7 +23,7 @@ namespace CoreMVCBackend.Backend{
         }
         private bool CheckAccount(HttpContext context){
             try{
-                string str=context.Session.GetString(Key_Storage.UserAccount);
+                string str=context.Session.GetString(Key_Storage.UserName);
                 if(string.IsNullOrWhiteSpace(str)){
                     return false;
                 }

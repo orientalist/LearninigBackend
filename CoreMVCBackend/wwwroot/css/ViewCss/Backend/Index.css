@@ -1,0 +1,14 @@
+#MainBody{
+    width: 100vw;                
+    display: flex;
+    flex-direction: row;
+}
+#MenuList{
+    width: 25%;        
+}
+#Content{
+    width: 75%;        
+}    
+#MenuList button{
+    width: 100%;
+}

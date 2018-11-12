@@ -13,11 +13,10 @@ $(document).ready(function(){
                 type:"POST",                
                 data:Data
             }).done(function(result){                
-                console.log(result);
                 if(result.httpStatus!=1){
                     $("#ErrorMsg").text(result.message);
                 }
-                else{                    
+                else{                  
                     location.href="/Backend/Index";
                 }
                 $("#btnLogIn").prop("disabled",false);

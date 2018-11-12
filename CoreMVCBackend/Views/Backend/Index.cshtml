@@ -1,47 +1,21 @@
-<style>
-    #MainBody{
-        width: 100vw;                
-        display: flex;
-        flex-direction: row;
-    }
-    #MenuList{
-        width: 25%;        
-    }
-    #Content{
-        width: 75%;        
-    }    
-    #MenuList button{
-        width: 100%;
-    }
-</style>
+<link rel="stylesheet" href="~/css/ViewCss/Backend/Index.css">
 <div id="MainBody">
     <div id="MenuList">
         <h3>NavBar</h3>
         <div>
             <div><button onclick="GetPage('Backend','NavBar')">項目</button></div>            
         </div>
+        <h3>後台權限</h3>
+        <div>
+            <div><button onclick="GetPage('Backend','Account')">帳號</button></div>
+        </div>
         <h3>其他</h3>
         <div>
-            <div><button>登出</button></div>
+            <div><button onclick="fnLogOut()">登出</button></div>
         </div>
     </div>
     <div id="Content">
 
     </div>
 </div>   
-
-<script>
-    $(document).ready(function(){
-        $("#MenuList").accordion();
-        $("#MenuList button").button();
-    });
-    var GetPage=function(Controller,Action){
-        var urlStr="/"+Controller+"/"+Action;        
-        $.ajax({
-            type:"POST",
-            url:urlStr
-        }).done(function(content){
-            $("#Content").html(content);
-        });
-    }
-</script>
+<script src="~/js/ViewJs/Backend/Index.js"></script>

@@ -1,0 +1,30 @@
+#NavBarBody{        
+    text-align: center;
+    display: flex;        
+    flex-direction: column;
+}
+table{
+    margin: auto;
+}
+table tr{
+    border: 1px solid black;
+}
+table td{
+    border: 1px solid black;
+}
+table{
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 60%;
+    text-align: center;
+}
+#NavBarItemCreate{
+    display: none;
+}
+#NavBarItemQuery{
+    display: none;
+    width: 80%;
+}
+#NavBarItemQuery input[type=text]{
+    width: 80px;
+}
