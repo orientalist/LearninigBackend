@@ -1,26 +1,5 @@
-#NavBarBody{        
-    text-align: center;
-    display: flex;        
-    flex-direction: column;
-    color: lightgrey;
-}
-table{
-    margin: auto;
-}
-table tr{
-    border: 1px solid white;
-}
-table td{
-    border: 1px solid white;
-}
-table{
-    margin-top: 20px;
-    border: 1px solid white;
-    width: 60%;
-    text-align: center;
-}
 #NavBarItemCreate{
-    display: none;
+    display: none;    
 }
 #NavBarItemQuery{
     display: none;

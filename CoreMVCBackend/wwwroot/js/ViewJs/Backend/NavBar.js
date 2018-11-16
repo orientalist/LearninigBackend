@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#NavBarBody button").button();
-    //fnGetControllers();        
+    $(".PageBody button").button();
+    //fnGetControllers();
 
 });
 var OpenCreateTable=function(){

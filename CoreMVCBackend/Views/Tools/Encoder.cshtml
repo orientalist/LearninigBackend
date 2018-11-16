@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="~/css/ViewCss/Backend/Encoder.css">
+<link rel="stylesheet" href="~/css/ViewCss/Backend/Table.css">
+<div class="PageBody">
+    <table>
+        <tr>
+            <th colspan="2">SHA1Encoder</th>
+        </tr>
+        <tr>
+            <td><label for="SHA1Txt">欲加密的字串:</label></td>
+            <td><input name="SHA1Txt" id="SHA1Txt" type="text"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnEncode">SHA1</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span id="SHA1_ed">加密後字串</span></td>
+        </tr>
+    </table>
+    <hr>
+    <table>
+        <tr>
+            <th colspan="2">SHA256Encoder</th>
+        </tr>
+        <tr>
+            <td><label for="SHA256Txt">欲加密的字串:</label></td>
+            <td><input name="SHA256Txt" id="SHA256Txt" type="text"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnEncode">SHA256</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span id="SHA256_ed">加密後字串</span></td>
+        </tr>
+    </table>
+    <hr>
+    <table>
+        <tr>
+            <th colspan="2">MD5Encoder</th>
+        </tr>
+        <tr>
+            <td><label for="MD5Txt">欲加密的字串:</label></td>
+            <td><input name="MD5Txt" id="MD5Txt" type="text"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnEncode">MD5</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span id="MD5_ed">加密後字串</span></td>
+        </tr>
+    </table>
+</div>
+<script src="~/js/ViewJs/Backend/Encoder.js"></script>
