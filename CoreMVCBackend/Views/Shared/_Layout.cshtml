@@ -29,9 +29,27 @@
     <script src="~/js/Jquery/jquery-ui.min.js"></script>    
 
     <script>
+        var audio;
         $(document).ready(function(){
             var heightOfNavBar=$("#topBar").height();
             $("footer").height(heightOfNavBar);
+            audio=new Audio("../../Resources/LogIn.mp3");
+            var AudioStopImg="/images/speaker-stop.png";
+            var AudioPlayingImg="/images/speaker.png";
+            $("#audio").click(function(){
+                if($(this).hasClass("playing")){
+                    $(this).removeClass("playing");
+                    $(this).addClass("stop");
+                    $(this).attr("src",AudioStopImg);
+                    audio.pause();
+                }
+                else if($(this).hasClass("stop")){
+                    $(this).removeClass("stop");
+                    $(this).addClass("playing");
+                    $(this).attr("src",AudioPlayingImg);
+                    audio.play();
+                }
+            });
         });
     </script>
 </head>
@@ -50,6 +68,7 @@
         </div>
         <div>
             <span id="UserName"></span>
+            <img id="audio" class="stop" src="~/images/speaker-stop.png">
         </div>
     </nav>    
     <div>

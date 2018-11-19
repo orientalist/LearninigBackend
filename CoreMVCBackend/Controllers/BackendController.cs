@@ -10,9 +10,9 @@ namespace CoreMVCBackend.Backend{
 
         public IActionResult Index(){            
             
-            // if(!CheckAccount(HttpContext)){
-            //      return View("LogIn");
-            // }
+            if(!CheckAccount(HttpContext)){
+                return View("LogIn");
+            }
 
             
             return View();

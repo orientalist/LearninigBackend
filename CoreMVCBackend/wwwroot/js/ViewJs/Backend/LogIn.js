@@ -1,7 +1,10 @@
 var begin=1;
 var Connecting=true;
+var audio;
 $(document).ready(function(){
-    InitView();    
+    InitView();
+    audio=new Audio("../../Resources/LogIn.mp3");
+    audio.play();
     $("#btnLogIn").click(function(){
         $("#btnLogIn").prop("disabled",true);
         if(ValidateInpit()){
