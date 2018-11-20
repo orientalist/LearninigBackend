@@ -4,6 +4,7 @@ using Dapper;
 using System;
 using CoreMVCBackend.Service.Core;
 using System.Collections.Generic;
+using CoreMVCBackend.Utility;
 
 namespace CoreMVCBackend.Service.User{
     public class MemberData:BaseData{
@@ -36,7 +37,7 @@ namespace CoreMVCBackend.Service.User{
                     #endregion 重複嘗試失敗
 
                     var User=query[0];
-                    if(!User.Account_Password.Equals(Pass)){
+                    if(!EncodeHelper.Encode(EncodeEnum.SHA1,Pass).Equals(User.Account_Password)){
                         throw new LogInException("202","密碼錯誤");
                     }
 
