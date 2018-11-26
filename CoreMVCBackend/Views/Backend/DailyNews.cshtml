@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="~/css/ViewCss/Backend/Table.css">
+<style>
+    #NewsDate{
+        font-family:Orbitron;
+    }
+</style>
+<div class="PageBody">
+    <table>
+        <tr>
+            <th>每日頭條</th>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="OpenCreateTable()">新增</button>
+                <button onclick="ＱueryNews()">查詢</button>
+            </td>
+        </tr>
+    </table>
+    <table id="DailyNewsCreate">
+        <tr>
+            <th colspan="2">新增DailyNews</th>
+        </tr>
+        <tr>
+            <td>
+                日期：
+            </td>
+            <td>
+                <span id="NewsDate"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                狀態：
+            </td>
+            <td>
+                <input type="radio" name="Status" value="1" checked="checked">&nbsp; 顯示
+                <input type="radio" name="Status" value="0">&nbsp; 隱藏
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="Subject">標題：</label>
+            </td>
+            <td>
+                <input type="text" id="Subject">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">內文</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea id="Context" style="width:100%;height:10em;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="CreateNews()">新增</button>
+                <button onclick="Clear()">清空</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    $(document).ready(function(){
+        fnDateTimeTick();
+        
+    });
+    var fnDateTimeTick=function(){
+        
+        $("#NewsDate").text(new Date().toString());
+        setTimeout(fnDateTimeTick,1000);
+    }
+    var CreateNews=function(){
+        var dateTime=new Date();
+        var datetimeStr=dateTime.getDate()+'/'+
+                        (dateTime.getMonth()+1)+'/'+
+                        dateTime.getFullYear()+' '+
+                        dateTime.getHours()+':'+
+                        dateTime.getMinutes()+':'+
+                        dateTime.getSeconds();
+        var Data={
+            NewsDate:datetimeStr,
+            Subject:$("#Subject").val(),
+            Context:$("#Context").val(),
+            Status:$("input[name=Status]:checked").val()
+        };
+        if(Data.Subject.length==0||Data.Context.length==0){
+            alert("請輸入文字");
+        }
+        else{
+            $.ajax({
+                url:"/WebAPIs/CreateDailyNews",
+                type:"POST",
+                data:Data
+            }).done(function(result){
+
+            });
+        }
+    }
+</script>

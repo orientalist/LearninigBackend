@@ -12,6 +12,9 @@ using Newtonsoft.Json;
 using CoreMVCBackend.Model.NavBar;
 using CoreMVCBackend.Service.NavBar;
 using System.Collections.Generic;
+using CoreMVCBackend.Service.DailyNews;
+using CoreMVCBackend.Model.DailyNews;
+using System.Globalization;
 
 namespace CoreMVCBackend.Backend{
     public class WebAPIsController:BaseController{
@@ -21,6 +24,7 @@ namespace CoreMVCBackend.Backend{
             ConfigHelper=new ConfigHelper(_MySqlConnection);
         }
         private NavBarBl navBarBl;
+        private DailyNewsBL dailyNewsBL;
 
         [HttpPost]        
         public IActionResult LogIn(){
@@ -205,6 +209,33 @@ namespace CoreMVCBackend.Backend{
         }
         public void SetUserSession(AccountModel user){
             HttpContext.Session.SetString(Key_Storage.UserName,user.Account_Name);
+        }
+
+        [HttpPost]
+        public IActionResult CreateDailyNews(){
+            ResponseModel Result=new ResponseModel();
+            DailyNews news=new DailyNews(){
+                NewsDate=DateTime.ParseExact(Request.Form["NewsDate"],"dd/MM/yyyy HH:mm:ss",null),
+                Subject=Request.Form["Subject"],
+                Context=Request.Form["Context"],
+                Status=Convert.ToInt32(Request.Form["Status"])
+            };
+
+            try{
+                dailyNewsBL=new DailyNewsBL();
+                if(dailyNewsBL.CreateDailyNews(news,ConfigHelper.ConnectionString)){
+                    Result.HttpStatus="1";
+                    Result.Message="OK";
+                }
+                else{
+                    Result.HttpStatus="0";
+                    Result.Message="新增失敗";
+                }
+            }catch(Exception ex){
+
+            }
+
+            return Json(Result);
         }
     }
 }

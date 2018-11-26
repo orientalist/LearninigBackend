@@ -21,6 +21,10 @@ namespace CoreMVCBackend.Backend{
         public IActionResult NavBar(){
             return PartialView();
         }
+
+        public IActionResult DailyNews(){
+            return PartialView();
+        }
         private bool CheckAccount(HttpContext context){
             try{
                 string str=context.Session.GetString(Key_Storage.UserName);
